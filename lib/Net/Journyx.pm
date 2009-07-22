@@ -88,6 +88,12 @@ has allows_utf8 => (
     default => 0,
 );
 
+has auto_logout => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 =head2 login
 
 You don't need to call. Just provide username and password.
@@ -168,6 +174,11 @@ sub {
 END
 
     __PACKAGE__->meta->add_method($method => $sub);
+}
+
+sub DEMOLISH {
+    my $self = shift;
+    $self->logout if $self->auto_logout;
 }
 
 __PACKAGE__->meta->make_immutable;
