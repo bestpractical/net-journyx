@@ -1,5 +1,8 @@
 Changes for Net-Journyx:
 
+0.11  Thu Jul 23 2009 14:01:55 EST
+    - Add "auto_logout" option for logout on Net::Journyx object DESTROY
+
 0.10  Thu Mar 12 2009 00:19:47 EST
     - Add getCodeList, getSubcodeList, and getSubsubcodeList
     - Allow callers to avoid loading created records if they don't need them
