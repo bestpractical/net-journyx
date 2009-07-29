@@ -181,6 +181,7 @@ sub install_basic {
     }
 }
 
+our $IN_LOGIN_RETRY = 0;
 sub basic_call {
     my $self = shift;
     my $op = shift;
@@ -188,6 +189,14 @@ sub basic_call {
 
     my ($answer, $trace) = $self->call( $op => %args );
     unless ( exists $answer->{ $op .'Response' } ) {
+        if ( $op ne 'logout' && $op ne 'login'
+            && !$IN_LOGIN_RETRY
+            && $answer->{'Fault'}{'faultstring'} eq 'session timed out or invalid token'
+        ) {
+            $self->jx->clear_session;
+            local $IN_LOGIN_RETRY = 1;
+            return $self->basic_call( $op => %args );
+        }
         my $exception = 'XXX IMPLEMENT ME!';
         die "Couldn't run function $op: ". Dumper( $answer );
     }
@@ -204,6 +213,11 @@ sub batch_call {
     my $self = shift;
     my ($answer, $trace) = $self->create_batch_call->( @_ );
     unless ( exists $answer->{ 'jxAPIBatchResponse' }{'Result'} ) {
+        if ( !$IN_LOGIN_RETRY && $answer->{'Fault'}{'faultstring'} eq 'session timed out or invalid token' ) {
+            $self->jx->clear_session;
+            local $IN_LOGIN_RETRY = 1;
+            return $self->batch_call( @_ );
+        }
         my $exception = 'XXX IMPLEMENT ME!';
         die "Couldn't run function jxAPIBatch: ". Dumper( $answer );
     }
