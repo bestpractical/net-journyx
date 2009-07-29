@@ -1,5 +1,8 @@
 Changes for Net-Journyx:
 
+0.12
+    - Transparent reauthentication in case of session expiration
+
 0.11  Thu Jul 23 2009 14:01:55 EST
     - Add "auto_logout" option for logout on Net::Journyx object DESTROY
 
