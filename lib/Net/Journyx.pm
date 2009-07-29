@@ -195,15 +195,15 @@ Net::Journyx - interface to Journyx
 
 =head1 DESCRIPTION
 
-=head1 METHODS
-
+Please see L<Net::Journyx::Tutorial> for now.
 
 =head1 AUTHORS
 
+Ruslan Zakirov, C<ruz@cpan.org>
+
 =head1 CONTRIBUTORS
 
-=head1 BUGS
-
+Shawn M Moore, C<sartak@bestpractical.com>
 
 =head1 COPYRIGHT & LICENSE
 
