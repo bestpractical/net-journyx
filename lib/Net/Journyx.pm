@@ -209,4 +209,6 @@ Shawn M Moore, C<sartak@bestpractical.com>
 
 Copyright 2009 Best Practical Solutions.
 
+This module is distributed under the same terms as Perl itself.
+
 =cut
