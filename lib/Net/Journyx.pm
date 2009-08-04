@@ -1,7 +1,7 @@
 package Net::Journyx;
 use Moose;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 use Net::Journyx::SOAP;
 

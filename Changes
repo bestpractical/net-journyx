@@ -1,5 +1,8 @@
 Changes for Net-Journyx:
 
+0.13  Tue Aug 4 2009 01:29:30 EST
+    - Trace calls to login, logout, and clear_session if $Net::Journyx::TRACE
+
 0.12  Wed Jul 29 2009 17:57:53 EST
     - Transparent reauthentication in case of session expiration
 
