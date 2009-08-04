@@ -5,6 +5,9 @@ our $VERSION = '0.12';
 
 use Net::Journyx::SOAP;
 
+our $TRACE = 0;
+sub trace { Carp::carp("Net::Journyx trace: @_") if $TRACE }
+
 has site => (
     is            => 'rw',
     isa           => 'Str',
