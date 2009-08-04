@@ -47,6 +47,8 @@ has session => (
     },
 );
 
+before clear_session => sub { trace "Clearing session" };
+
 has wsdl => (
     is            => 'rw',
     isa           => 'Str',
