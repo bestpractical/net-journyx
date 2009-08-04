@@ -21,6 +21,7 @@ has username => (
     documentation => "User name",
     trigger       => sub {
         my $self = shift;
+        trace "Clearing session because username changed";
         $self->clear_session;
     },
 );
@@ -41,6 +42,7 @@ has session => (
     lazy          => 1,
     default       => sub {
         my $self = shift;
+        trace "Calling login because we had no session";
         return $self->login;
     },
 );
@@ -110,6 +112,7 @@ sub login {
         keep_old_sessions => 1,
         @_
     );
+    trace "Logging in";
 
     my $user = $self->username;
     my $pass = $self->password;
@@ -124,6 +127,7 @@ sub logout {
     my $self = shift;
     return 1 unless $self->has_session;
     my $response = $self->soap->basic_call( logout => @_ );
+    trace "Clearing session because we called logout";
     $self->clear_session;
     return 1;
 }
@@ -181,7 +185,10 @@ END
 
 sub DEMOLISH {
     my $self = shift;
-    $self->logout if $self->auto_logout;
+    if ($self->auto_logout) {
+        trace "Calling logout automatically because of object destriction";
+        $self->logout;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
