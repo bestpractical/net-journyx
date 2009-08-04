@@ -193,6 +193,8 @@ sub basic_call {
             && !$IN_LOGIN_RETRY
             && $answer->{'Fault'}{'faultstring'} eq 'session timed out or invalid token'
         ) {
+            Net::Journyx::trace("Clearing session because session timed out or invalid token");
+
             $self->jx->clear_session;
             local $IN_LOGIN_RETRY = 1;
             return $self->basic_call( $op => %args );
