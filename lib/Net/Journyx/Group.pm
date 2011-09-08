@@ -63,7 +63,7 @@ sub list_records {
     $res = [$res] unless ref($res) eq 'ARRAY';
 
     # XXX: Strange but operation returns string 'Other' as well
-    return grep defined && length && $_ ne 'Other', @$res;
+    return grep defined && !ref($_) && length && $_ ne 'Other', @$res;
 }
 
 sub add_record {
